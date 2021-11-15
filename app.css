@@ -1,0 +1,43 @@
+RecipeLink{
+    font-size: 10;
+    color: black;
+    text-decoration: none;
+
+}
+ 
+
+RecipeLink:hover{
+    color:blue;
+}
+
+a.NextButton{
+
+}
+
+a.StartButton{
+
+}
+Recipe{
+
+}
+
+
+RecipeDescription{
+
+}
+
+Ingredients{
+
+}
+
+Step{
+
+}
+
+StepDescription{
+
+}
+
+Timer{
+
+}
