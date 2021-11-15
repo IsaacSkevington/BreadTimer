@@ -1,32 +1,64 @@
+/*
+Tan #b68d40
+Cream #f4ebd0
+Charcoal #122620
+Gold #d6ad60
+*/
+
+
 RecipeLink{
-    font-size: 10;
-    color: black;
-    text-decoration: none;
+    border: 1px solid #122620;
+    background: none;
+    border-radius: 1rem;
+    padding : 10px;
+    transition-duration: 500ms;
+    display: inline-block;
 
 }
  
 
 RecipeLink:hover{
-    color:blue;
+    background: #d6ad60;
 }
 
-a.NextButton{
+a.NextButton, a.StartButton{
+    border: 1px solid #d6ad60;
+    background: none;
+    border-radius: 1rem;
+    padding : 2%;
+    transition-duration: 500ms;
+    margin-left: 80%;
+    display: inline-block;
+}
+
+a.NextButton:hover, a.StartButton:hover{
+    background: #d6ad60;
+
 
 }
 
-a.StartButton{
 
-}
+
+
 Recipe{
-
+    font-size: 50pt;
+    text-decoration: underline;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 
 RecipeDescription{
+    font-size: 25pt;
+    text-decoration: none;
 
 }
 
 Ingredients{
+    font-size: 25pt;
+    text-decoration: none;
 
 }
 

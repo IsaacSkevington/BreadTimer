@@ -45,8 +45,11 @@ class Bread{
         this.endSound = endSound;
         let stepWindow = document.createElement('Recipe');
         stepWindow.innerHTML = this.name + ". Time to complete: " + Timer.secsToTime(this.timeToComplete);
+        this.stepWindowId = IdManager.getID();
+        stepWindow.id = this.stepWindowId;
 
-        let descWindow = document.createElement('RecipeDesciption');
+
+        let descWindow = document.createElement('RecipeDescription');
         descWindow.innerHTML = this.desc;
 
         let ingredientsWindow = document.createElement('Ingredients');
@@ -72,6 +75,10 @@ class Bread{
     doStep(parent){
         if(this.currentStep > 0){
             this.steps[this.currentStep - 1].delete()
+        }
+        else{
+            var elem = document.getElementById(this.stepWindowId);
+            elem.parentNode.removeChild(elem);
         }
         this.steps[this.currentStep].display(parent, this.endSound, ()=>(this.nextStep()));
     }

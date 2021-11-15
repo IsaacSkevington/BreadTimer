@@ -15,7 +15,11 @@
         LOAVES.forEach(loaf => {
             var loafLink = document.createElement('RecipeLink');
             loafLink.id = links.toString(); 
-            loafLink.onclick = function(){loaf.display('recipe', 'timerSound')}
+            loafLink.onclick = function(){
+                var elem = document.getElementById(loafLink.id);
+                elem.parentNode.removeChild(elem);
+                loaf.display('recipe', 'timerSound')
+            }
             loafLink.innerHTML = loaf.name;
             recipe.appendChild(loafLink);
         });
