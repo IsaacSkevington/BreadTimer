@@ -7,11 +7,27 @@ class Step{
     }
 
 
+    static createIngredientsWindow(ingredients){
+        let ingreds = document.createElement('Ingredients');
+        let title = document.createElement('IngredientsTitle')
+        title.innerHTML = "Ingredients";
+        ingreds.appendChild(title);
+        let list = document.createElement('ul');
+
+        ingredients.forEach(ingredient => {
+            var currentIngredWindow = document.createElement('li')
+            currentIngredWindow.innerHTML = ingredient.toString()
+            list.appendChild(currentIngredWindow);
+        });
+        ingreds.appendChild(list);
+        return ingreds;
+    }
+
 
     static ingredientListToString(list, sep){
         let out = "";
         list.forEach(item => {
-            out += item.toString() + sep;
+            out += "-" + item.toString() + sep;
         });
         return out;
     }
@@ -19,34 +35,46 @@ class Step{
     display(window, sound, end){
         this.sound = sound;
         let stepWindow = document.createElement('Step');
-        stepWindow.innerHTML = "Step " + this.number + ". Time to complete: " + Timer.secsToTime(this.time);
         this.id = IdManager.getID();
         stepWindow.id = this.id;
+
+        let titleWindow = document.createElement('StepTitle');
+        titleWindow.innerHTML = "Step " + this.number + "<br> Time to complete: " + Timer.secsToTime(this.time);
 
         let descWindow = document.createElement('StepDescription');
         descWindow.innerHTML = this.description;
 
-        let ingredientsWindow = document.createElement('Ingredients');
-        ingredientsWindow.innerHTML = Step.ingredientListToString(this.ingredients, "\n");
 
+        stepWindow.appendChild(titleWindow);
+
+        let subwindow = document.createElement('StepInfo');
+
+        if(this.ingredients.length > 0){
+            let ingredientsWindow = Step.createIngredientsWindow(this.ingredients);
+            subwindow.appendChild(ingredientsWindow);
+        }
+        else{
+            descWindow.style.borderLeft = "0px";
+        }
+    
+        subwindow.appendChild(descWindow);
         
-        stepWindow.appendChild(descWindow);
-        stepWindow.appendChild(ingredientsWindow);
+
+        stepWindow.appendChild(subwindow);
+
 
         document.getElementById(window).appendChild(stepWindow);
-        this.startbutton = new Button("Start", window, "StartButton", ()=>(this.start(window, end)));
+        this.startbutton = new Button("Start step", window, "StartButton", ()=>(this.start(end)));
         this.startbutton.show();
     }
 
 
-    start(display, endFunction){
-        this.startbutton.delete();
+    start(endFunction){
+        this.startbutton.hide();
         this.endFunction = endFunction;
-        let timerWindow = document.createElement('Timer');
-        document.getElementById(display).appendChild(timerWindow)
-        let timer = new Timer(this.time, ()=>(this.end()));
-        timer.show(display, 9);
-        timer.start();
+        this.timer = new Timer(this.time, ()=>(this.end()));
+        this.timer.show(this.id, 9);
+        this.timer.start();
     }
 
 

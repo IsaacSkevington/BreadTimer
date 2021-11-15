@@ -41,6 +41,10 @@ a.NextButton:hover, a.StartButton:hover{
 
 
 Recipe{
+
+}
+
+RecipeTitle{
     font-size: 50pt;
     text-decoration: underline;
     width: 100%;
@@ -49,27 +53,73 @@ Recipe{
     flex-direction: column;
 }
 
-
 RecipeDescription{
     font-size: 25pt;
     text-decoration: none;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    display: inline-block;
 
+}
+
+IngredientsTitle{
+    text-decoration: underline;
 }
 
 Ingredients{
     font-size: 25pt;
     text-decoration: none;
-
+    display: flex;
+    flex-direction: column;
+    list-style: circle;
+    padding: 1%;
 }
 
-Step{
 
+
+Step{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1%;
+}
+
+StepTitle{
+    font-size: 40pt;
+    text-decoration: underline;
+    width: 100%;
+    text-align: center;
+}
+
+StepInfo{
+    display: flex;
+    justify-content: space-around;
+    padding: 5%;
 }
 
 StepDescription{
-
+    font-size: 25pt;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-left: 1px solid #b68d40;
 }
 
 Timer{
+    border: 4px solid #b68d40;
+    font-size: 50pt;
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    border-radius: 1rem;
+}
 
+Timer.InProgress{
+    color:#122620
+}
+
+Timer.Complete{
+    color: #d6ad60
 }

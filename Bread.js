@@ -44,37 +44,41 @@ class Bread{
 
         this.endSound = endSound;
         let stepWindow = document.createElement('Recipe');
-        stepWindow.innerHTML = this.name + ". Time to complete: " + Timer.secsToTime(this.timeToComplete);
         this.stepWindowId = IdManager.getID();
         stepWindow.id = this.stepWindowId;
+
+        let titleWindow = document.createElement('RecipeTitle');
+        titleWindow.innerHTML = this.name + "<br>Time to complete: " + Timer.secsToTime(this.timeToComplete);
+              
 
 
         let descWindow = document.createElement('RecipeDescription');
         descWindow.innerHTML = this.desc;
 
-        let ingredientsWindow = document.createElement('Ingredients');
-        ingredientsWindow.innerHTML = Step.ingredientListToString(this.ingredients, "\n");
-
+        let ingredientsWindow = Step.createIngredientsWindow(this.ingredients);
         
+        stepWindow.appendChild(titleWindow);
         stepWindow.appendChild(descWindow);
         stepWindow.appendChild(ingredientsWindow);
         document.getElementById(parent).appendChild(stepWindow);
 
-        this.startbutton = new Button("Start", parent, "StartButton", ()=>(this.start(parent, this.end)));
+        this.startbutton = new Button("Start Recipe", parent, "StartButton", ()=>(this.start(parent, this.end)));
         this.startbutton.show();
     }
 
 
     start(parent, endFunction){
         this.currentStep = 0;
-        this.startbutton.delete();
-        this.nextStepButton = new Button("Next >", parent, "NextButton", ()=>(this.doStep(parent)));
+        this.startbutton.hide();
+        this.nextStepButton = new Button("Next Step >", parent, "NextButton", ()=>(this.doStep(parent)));
         this.nextStepButton.show();
+        this.doStep(parent);
     }
 
     doStep(parent){
+        this.nextStepButton.hide();
         if(this.currentStep > 0){
-            this.steps[this.currentStep - 1].delete()
+            this.steps[this.currentStep - 1].delete();
         }
         else{
             var elem = document.getElementById(this.stepWindowId);
@@ -85,6 +89,7 @@ class Bread{
 
     nextStep(){
         this.currentStep++; 
+        this.nextStepButton.show();
     }
 
     end(){

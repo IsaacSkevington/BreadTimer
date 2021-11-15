@@ -31,6 +31,7 @@ class Timer{
         timer.innerHTML = Timer.secsToTime(this.secs);
         this.displayid = IdManager.getID();
         timer.id = this.displayid;
+        timer.className = "InProgress";
         document.getElementById(parent).appendChild(timer);
     }
 
@@ -51,6 +52,7 @@ class Timer{
     }
 
     end(){
+        document.getElementById(this.displayid).className = "Complete"
         this.endFunction();
     }
 

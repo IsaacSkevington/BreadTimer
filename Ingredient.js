@@ -15,7 +15,7 @@ class Ingredient{
     }
 
     toString(){
-        return this.name + " " + this.amount + this.unit;
+        return this.amount + this.unit + " " + this.name;
     }
 
 }

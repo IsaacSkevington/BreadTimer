@@ -23,7 +23,7 @@ class Button{
         document.getElementById(this.parent).appendChild(button);
     }
 
-    delete(){
+    hide(){
         var elem = document.getElementById(this.id);
         elem.parentNode.removeChild(elem);
     }
