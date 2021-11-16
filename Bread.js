@@ -1,29 +1,54 @@
 class Bread{
-    constructor(name, desc, steps){
+    constructor(name, desc, steps, stepGroups, repeats){
         this.desc = desc;
         this.name = name;
         this.steps = steps;
+        this.stepOrder = this.parseGroups(stepGroups, repeats)
         this.ingredients = this.sumingredients();
         this.timeToComplete = this.sumStepTimes();
 
+    }
+
+    parseGroups(groups, repeats){
+        let out = [];
+        for(var i = 0; i < this.steps.length; i++){
+            var repeat = 1;
+            if((i + 1) in repeats){
+                repeat = repeats[i+1];
+            }
+            if((i + 1) in groups){
+                for(var j = 0; j < repeat; j++){
+                    for(var k = i + 1; k <= groups[i + 1]; k++){
+                        out.push(k - 1);
+                    }
+                }
+                i = groups[i + 1]
+            }
+            else{
+                for(var j = 0; j < repeat; j++){
+                    out.push(i);
+                }
+            }
+        }
+        return out;
     }
 
     sumingredients(){
         let out = [];
         let added = false;
 
-        for(var i = 0; i<this.steps.length; i++){
-            for(var j = 0; j< this.steps[i].ingredients.length; j++){
+        for(var i = 0; i<this.stepOrder.length; i++){
+            for(var j = 0; j< this.steps[this.stepOrder[i]].ingredients.length; j++){
                 added = false;
                 for(var k = 0; k < out.length; k++){
-                    if(this.steps[i].ingredients[j].equals(out[k])){
-                        out[k] = this.steps[i].ingredients[j].add(out[k]);
+                    if(this.steps[this.stepOrder[i]].ingredients[j].equals(out[k])){
+                        out[k] = this.steps[this.stepOrder[i]].ingredients[j].add(out[k]);
                         added = true;
                         break;
                     }
                 }
                 if(!added){
-                    out.push(this.steps[i].ingredients[j]);
+                    out.push(this.steps[this.stepOrder[i]].ingredients[j]);
                 }
             }
         }
@@ -32,9 +57,9 @@ class Bread{
 
     sumStepTimes(){
         let total = 0;
-        this.steps.forEach(step => {
-            total += step.time;
-        });
+        for(var i = 0; i < this.stepOrder.length; i++){
+            total += this.steps[this.stepOrder[i]].time;
+        };
         return total;
     }
 
@@ -78,13 +103,13 @@ class Bread{
     doStep(parent){
         this.nextStepButton.hide();
         if(this.currentStep > 0){
-            this.steps[this.currentStep - 1].delete();
+            this.steps[this.stepOrder[this.currentStep - 1]].delete();
         }
         else{
             var elem = document.getElementById(this.stepWindowId);
             elem.parentNode.removeChild(elem);
         }
-        this.steps[this.currentStep].display(parent, this.endSound, ()=>(this.nextStep()));
+        this.steps[this.stepOrder[this.currentStep]].display(parent, this.endSound, ()=>(this.nextStep()));
     }
 
     nextStep(){
