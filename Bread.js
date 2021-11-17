@@ -22,7 +22,7 @@ class Bread{
                         out.push(k - 1);
                     }
                 }
-                i = groups[i + 1]
+                i = groups[i + 1] - 1;
             }
             else{
                 for(var j = 0; j < repeat; j++){
@@ -68,12 +68,16 @@ class Bread{
 
 
         this.endSound = endSound;
-        let stepWindow = document.createElement('Recipe');
+        let recipeHomepage = document.createElement('Recipe');
         this.stepWindowId = IdManager.getID();
-        stepWindow.id = this.stepWindowId;
+        recipeHomepage.id = this.stepWindowId;
 
         let titleWindow = document.createElement('RecipeTitle');
-        titleWindow.innerHTML = this.name + "<br>Time to complete: " + Timer.secsToTime(this.timeToComplete);
+        titleWindow.innerHTML = this.name;
+
+
+        let timeToCompleteWindow = document.createElement('StepTimeToComplete');
+        timeToCompleteWindow.innerHTML = "(Time to complete: " + Timer.secsToTime(this.timeToComplete) + ")";
               
 
 
@@ -81,11 +85,11 @@ class Bread{
         descWindow.innerHTML = this.desc;
 
         let ingredientsWindow = Step.createIngredientsWindow(this.ingredients);
-        
-        stepWindow.appendChild(titleWindow);
-        stepWindow.appendChild(descWindow);
-        stepWindow.appendChild(ingredientsWindow);
-        document.getElementById(parent).appendChild(stepWindow);
+        recipeHomepage.appendChild(titleWindow);
+        recipeHomepage.appendChild(timeToCompleteWindow)
+        recipeHomepage.appendChild(descWindow);
+        recipeHomepage.appendChild(ingredientsWindow);
+        document.getElementById(parent).appendChild(recipeHomepage);
 
         this.startbutton = new Button("Start Recipe", parent, "StartButton", ()=>(this.start(parent, this.end)));
         this.startbutton.show();

@@ -3,6 +3,7 @@ Tan #b68d40
 Cream #f4ebd0
 Charcoal #122620
 Gold #d6ad60
+Grey #797979
 */
 
 
@@ -27,21 +28,31 @@ a.NextButton, a.StartButton{
     border-radius: 1rem;
     padding : 2%;
     transition-duration: 500ms;
-    margin-left: 80%;
     display: inline-block;
 }
 
 a.NextButton:hover, a.StartButton:hover{
     background: #d6ad60;
+    cursor: pointer;
 
+
+}
+
+div.recipeBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
 }
 
 
 
-
 Recipe{
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 RecipeTitle{
@@ -72,7 +83,7 @@ Ingredients{
     display: flex;
     flex-direction: column;
     list-style: circle;
-    padding: 1%;
+    padding: 3%;
 }
 
 
@@ -83,6 +94,7 @@ Step{
     justify-content: center;
     align-items: center;
     margin: 1%;
+    width: 100%;
 }
 
 StepTitle{
@@ -92,10 +104,18 @@ StepTitle{
     text-align: center;
 }
 
+StepTimeToComplete{
+    font-size: 20pt;
+    width: 100%;
+    text-align: center;
+    color: #797979
+}
+
 StepInfo{
     display: flex;
     justify-content: space-around;
     padding: 5%;
+    width: 50%;
 }
 
 StepDescription{
@@ -104,22 +124,68 @@ StepDescription{
     justify-content: center;
     text-align: center;
     align-items: center;
-    border-left: 1px solid #b68d40;
+    width: 50%;
+    padding:3%
+}
+
+StepSeparator{
+    width: 1px;
+    height: 0px;
+    background-color: #b68d40;
+    transition-duration: 1s;
+}
+
+Step Ingredients{
+    width: 50%;
 }
 
 Timer{
     border: 4px solid #b68d40;
-    font-size: 50pt;
     width: 80%;
-    display: inline-block;
-    text-align: center;
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
-Timer.InProgress{
+TimerValue{
+    font-size: 50pt;
+    display: inline-block;
+    text-align: center;
+
+}
+
+Timer TimerValue.InProgress{
     color:#122620
 }
 
-Timer.Complete{
+Timer TimerValue.Complete{
     color: #d6ad60
+}
+
+
+TimerButtons{
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    padding: 1%;
+    width: 25%;
+    min-width: fit-content;
+}
+
+
+a.mediaButton{
+    border: 1px solid #d6ad60;
+    background: none;
+    border-radius: 1rem;
+    padding : 5%;
+    transition-duration: 500ms;
+    display: inline-block;
+}
+
+a.mediaButton:hover{
+    background: #d6ad60;
+    cursor: pointer;
 }
