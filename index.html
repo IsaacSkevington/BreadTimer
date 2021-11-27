@@ -1,29 +1,18 @@
-<script src = "IdManager.js"></script>
-<script src = "Button.js"></script>
-<script src = "Timer.js"></script>
-<script src = "Step.js"></script>
-<script src = "Ingredient.js"></script>
-<script src = "Bread.js"></script>
-<script src = "Loaves.js"></script>
+<!DOCTYPE html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src = "RecipeWriter.js"></script>
+    <script src = "IdManager.js"></script>
+    <script src = "RecipeBook.js"></script>
+    <script src = "Button.js"></script>
+    <script src = "Timer.js"></script>
+    <script src = "Step.js"></script>
+    <script src = "Ingredient.js"></script>
+    <script src = "Recipe.js"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
 
-<link rel="stylesheet" href="app.css">
-<div id = "main">
-   <div id = "recipe" class="recipeBody">
-    <script>
-        let recipe = document.getElementById("recipe");
-        var links = 0;
-        LOAVES.forEach(loaf => {
-            var loafLink = document.createElement('RecipeLink');
-            loafLink.id = links.toString(); 
-            loafLink.onclick = function(){
-                var elem = document.getElementById(loafLink.id);
-                elem.parentNode.removeChild(elem);
-                loaf.display('recipe', 'timerSound')
-            }
-            loafLink.innerHTML = loaf.name;
-            recipe.appendChild(loafLink);
-        });
-    </script>
-   
-    </div>
-</div>
+<body>
+
+</body>

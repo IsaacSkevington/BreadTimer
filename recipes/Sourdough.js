@@ -219,6 +219,6 @@ let r = new Recipe(
     {9:10, 11:12, 19:21}, //Groups
     {9:3, 11:3, 19:2} //Repeats
 
-)
-RECIPEBOOK.add(r)
+);
+RECIPEBOOK.add(r);
 

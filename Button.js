@@ -23,6 +23,15 @@ class Button{
         document.getElementById(this.parent).appendChild(button);
     }
 
+    export(){
+        let button = document.createElement('a');
+        button.classList.add(this.displayClass);
+        button.innerHTML = this.text;
+        button.onclick = this.endFunction
+        button.id = this.id;
+        return button;
+    }
+
     hide(){
         var elem = document.getElementById(this.id);
         elem.parentNode.removeChild(elem);

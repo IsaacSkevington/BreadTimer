@@ -17,8 +17,21 @@ RecipeLink{
 
 }
  
-
 RecipeLink:hover{
+    background: #d6ad60;
+}
+
+CreateRecipe{
+    border: 1px solid #122620;
+    background: none;
+    border-radius: 1rem;
+    padding : 10px;
+    transition-duration: 500ms;
+    display: inline-block;
+
+}
+
+CreateRecipe:hover{
     background: #d6ad60;
 }
 
