@@ -6,6 +6,10 @@ let RECIPEBOOK;
 class User{
     constructor(){
         this.preferences = this.getPreferences();
+        if(this.preferences == null){
+            this.preferences = {"Requirements" : [], "Default Recipe Book" : "DefaultBook"}
+            localStorage.setItem('RECIPEBOOKUSERPREFERENCES', JSON.stringify(this.preferences));
+        }
     }
 
     setPreference(preferenceName, value){
