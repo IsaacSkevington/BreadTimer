@@ -15,8 +15,7 @@ class Button{
       
 
     show(){
-        let button = document.createElement('a');
-        button.classList.add(this.displayClass);
+        let button = document.createElement(this.displayClass);
         button.innerHTML = this.text;
         button.onclick = this.endFunction
         button.id = this.id;
@@ -24,8 +23,7 @@ class Button{
     }
 
     export(){
-        let button = document.createElement('a');
-        button.classList.add(this.displayClass);
+        let button = document.createElement(this.displayClass);
         button.innerHTML = this.text;
         button.onclick = this.endFunction
         button.id = this.id;

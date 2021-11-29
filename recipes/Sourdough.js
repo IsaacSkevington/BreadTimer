@@ -1,4 +1,4 @@
-let r = new Recipe(
+var r = new Recipe(
 
     "Sourdough",
     "A crusty loaf made with just flour and water",

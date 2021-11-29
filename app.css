@@ -5,6 +5,190 @@ Charcoal #122620
 Gold #d6ad60
 Grey #797979
 */
+IngredientForm{
+    
+    width: 90%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2%;
+
+    flex-direction: column;
+    margin-left: 10%;
+}
+
+IngredientFormItem{
+
+    width: 90%;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+
+}
+
+IngredientInput{
+    
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #797979;
+    border-bottom: 1px solid#797979;
+    padding: 1%;
+}
+
+form.RecipeCreation{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+
+StepInputMainBody{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    border-top: 1px solid #797979;
+    border-bottom: 1px solid #797979;
+}
+
+StepInputLeft{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width:80%;
+}
+
+StepInputRight{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 20%;
+}
+
+
+StepForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+StepFormList{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+InputBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 80%;
+}
+
+input.RecipeTitleInput{
+    font-size: 50pt;
+    padding: 1%;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    width: 100%
+    
+}
+
+
+input.RecipeInput{
+    font-size: medium;
+    padding: 1%;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+label.RecipeInput{
+    font-size: medium;
+    padding: 1%;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+
+textarea.RecipeInput{
+    font-size: medium;
+    padding: 1%;
+    font-family: 'Times New Roman', Times, serif;
+    width: 100%;
+}
+
+
+input.CreateButton{
+    border: 1px solid #d6ad60;
+    background: none;
+    border-radius: 1rem;
+    padding : 3%;
+    transition-duration: 500ms;
+    display: inline-block;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20pt
+}
+
+input.CreateButton:hover{
+    background: #d6ad60;
+    cursor: pointer;
+}
+
+HomeButton{
+    border: 1px solid #d6ad60;
+    background: none;
+    border-radius: 1rem;
+    padding : 7px;
+    transition-duration: 500ms;
+    display: inline-block;
+    margin: 1%;
+}
+
+HomeButton:hover{
+    background: #d6ad60;
+    cursor: pointer;
+}
+
+
+AddButton{
+    border: 1px solid #d6ad60;
+    background: none;
+    border-radius: 1rem;
+    padding : 7px;
+    transition-duration: 500ms;
+    display: inline-block;
+    margin: 1%;
+}
+
+AddButton:hover{
+    background: #d6ad60;
+    cursor: pointer;
+}
+
+RemoveButton{
+    border: 1px solid #d6ad60;
+    background: none;
+    border-radius: 1rem;
+    padding : 7px;
+    transition-duration: 500ms;
+    display: inline-block;
+    margin: 1%;
+}
+RemoveButton:hover{
+    background: #d66060;
+    cursor: pointer;
+}
 
 
 RecipeLink{
@@ -15,10 +199,12 @@ RecipeLink{
     transition-duration: 500ms;
     display: inline-block;
 
+    margin: 1%;
 }
  
 RecipeLink:hover{
     background: #d6ad60;
+    cursor: pointer;
 }
 
 CreateRecipe{
@@ -33,9 +219,10 @@ CreateRecipe{
 
 CreateRecipe:hover{
     background: #d6ad60;
+    cursor: pointer;
 }
 
-a.NextButton, a.StartButton{
+NextButton, StartButton{
     border: 1px solid #d6ad60;
     background: none;
     border-radius: 1rem;
@@ -44,7 +231,7 @@ a.NextButton, a.StartButton{
     display: inline-block;
 }
 
-a.NextButton:hover, a.StartButton:hover{
+NextButton:hover, StartButton:hover{
     background: #d6ad60;
     cursor: pointer;
 
@@ -189,7 +376,7 @@ TimerButtons{
 }
 
 
-a.mediaButton{
+mediaButton{
     border: 1px solid #d6ad60;
     background: none;
     border-radius: 1rem;
@@ -198,7 +385,7 @@ a.mediaButton{
     display: inline-block;
 }
 
-a.mediaButton:hover{
+mediaButton:hover{
     background: #d6ad60;
     cursor: pointer;
 }

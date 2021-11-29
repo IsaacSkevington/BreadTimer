@@ -10,7 +10,7 @@ class RecipeBook{
         var link = "recipes/" + this.name + ".js";
         var script = document.createElement('script');
         script.src = link;
-        script.onload = this.display;
+        script.onload = ()=>(this.display());
         document.getElementsByTagName('head')[0].appendChild(script);
     }
 
@@ -19,41 +19,60 @@ class RecipeBook{
         var script = document.createElement('script');
         script.src = link;
         document.getElementsByTagName('head')[0].appendChild(script);
+        script.onload = ()=>(this.displayRecipe(rname))
     }
 
+    deleteLinks(){
+        let links = this.recipeLinkIds;
+        links.forEach(id => {
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+        });
+    }
+
+    displayRecipe(recipe){
+        this.deleteLinks();
+        let homeButton = new Button("Home", "main", "HomeButton", ()=>(this.display())).export();
+        document.getElementById("recipe").appendChild(homeButton);
+        this.recipes[recipe].display('recipe', 'timerSound')
+
+    }
+
+    displayForm(){
+        this.deleteLinks();
+        let r = new RecipeWriter();
+        let form = r.makeRecipeCreationForm();
+
+        let homeButton = new Button("Home", "main", "HomeButton", ()=>(this.display())).export();
+        document.getElementById("recipe").appendChild(homeButton);
+        document.getElementById("recipe").appendChild(form);
+    }
+
+
     display(){
+        try{
+            document.getElementById("main").parentNode.removeChild(document.getElementById("main"));
+        }
+        catch{
+
+        }
         let mainDiv = document.createElement('div');
         mainDiv.id = "main";
+
 
         let recipeDiv = document.createElement('div');
         recipeDiv.id = "recipe";
         recipeDiv.classList.add("recipeBody")
 
         this.recipeLinkIds = [];            
-        function deleteLinks(links){
-            links.forEach(id => {
-                var elem = document.getElementById(id);
-                elem.parentNode.removeChild(elem);
-            });
-        }
 
-        function displayRecipe(recipe, links){
-            deleteLinks(links);
-            recipe.display('recipe', 'timerSound')
-        }
-
-        function displayForm(links){
-            deleteLinks(links);
-            r = new RecipeWriter();
-            let form = r.makeRecipeCreationForm();
-            document.getElementById("recipe").appendChild(form);
-        }
 
         RECIPELIST.forEach(recipeName => {
             var recipeLink = document.createElement('RecipeLink');
             recipeLink.id = IdManager.getID();
-            RECIPEBOOK.getRecipe(recipeName);
-            recipeLink.onclick = ()=>(displayRecipe(RECIPEBOOK.recipes[recipeName], this.recipeLinkIds));
+            recipeLink.onclick = ()=>{
+                RECIPEBOOK.getRecipe(recipeName);
+            };
             recipeLink.innerHTML = recipeName;
             recipeDiv.appendChild(recipeLink);
             this.recipeLinkIds.push(recipeLink.id)
@@ -63,7 +82,7 @@ class RecipeBook{
         recipeCreationButton.id = IdManager.getID();
         recipeCreationButton.innerHTML = "Create recipe"
         this.recipeLinkIds.push(recipeCreationButton.id);
-        recipeCreationButton.onclick = ()=>(displayForm(this.recipeLinkIds))
+        recipeCreationButton.onclick = ()=>(this.displayForm())
         recipeDiv.appendChild(recipeCreationButton);
         
         mainDiv.appendChild(recipeDiv);
