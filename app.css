@@ -19,7 +19,7 @@ IngredientForm{
 
 IngredientFormItem{
 
-    width: 90%;
+    width: 100%;
     justify-content: center;
     align-items: flex-start;
     display: flex;
@@ -34,6 +34,7 @@ IngredientInput{
     border-top: 1px solid #797979;
     border-bottom: 1px solid#797979;
     padding: 1%;
+    width: 90%;
 }
 
 form.RecipeCreation{
@@ -266,6 +267,7 @@ RemoveButton{
     transition-duration: 500ms;
     display: inline-block;
     margin: 1%;
+    text-align: center;
 }
 RemoveButton:hover{
     background: #d66060;

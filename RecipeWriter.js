@@ -52,8 +52,8 @@ class RecipeWriter{
         this.stepFormID = stepForm.id;
         let addStepButton = new Button("Add Step", "", "AddButton", ()=>(this.addStep(-1, null))).export();
 
-        let groupForm = this.createInput("Step Groups", "groupInput", "RecipeInput", "text", false);
-        let repeatForm = this.createInput("Step Repeats", "repeatInput", "RecipeInput", "text", false);
+        let groupForm = this.createInput("Step Groups (Format startStep:endStep;startStep:endStep)", "groupInput", "RecipeInput", "text", false);
+        let repeatForm = this.createInput("Step Repeats (Format stepNumber:repeatTimes;groupStart:repeatTimes)", "repeatInput", "RecipeInput", "text", false);
 
         let submitButton = document.createElement("input");
         submitButton.type = "submit"
@@ -85,7 +85,7 @@ class RecipeWriter{
         let leftDiv = document.createElement("StepInputLeft")
         let rightDiv = document.createElement("StepInputRight")
         let descriptionInput = this.createMultilineInput("Step Description", id + "description", "RecipeInput", "text");
-        let timeForCompletionInput = this.createInput("Time to Complete", id + "timeForCompletion", "RecipeInput", "time");
+        let timeForCompletionInput = this.createInput("Time to Complete (hh:mm)", id + "timeForCompletion", "RecipeInput", "time");
         let ingredientForm = this.ingredientCreationForm(id); 
         let addIngredientButton = new Button("Add Ingredient", "", "AddButton", ()=>(this.addIngredient(id, -1, null))).export();
 
@@ -175,7 +175,7 @@ class RecipeWriter{
 
         let ingredientCreationDiv = document.createElement('IngredientInput')
 
-        let ingredient = this.createInput("Ingredient: ", id + "input", "RecipeInput", "text");
+        let ingredient = this.createInput("Ingredient (Format [amount][unit] [Ingredient Name]): ", id + "input", "RecipeInput", "text");
         
        
         let removeIngredientButton = new Button("Remove Ingredient", containerDiv.id, "RemoveButton", ()=>(stepID, this.removeIngredient(stepID, id, this.getIngredientIndex(stepID, id))));
