@@ -118,20 +118,22 @@ class RecipeWriter{
 
 
     addIngredient(stepID, index, id){
+        let thisIndex = index + 1;
         let ingredientName = stepID + "ingredient" + IdManager.getID();
-        let ingredientWindow = this.createIngredientInput(stepID, ingredientName);
+        let ingredientWindow = this.createIngredientInput(stepID, ingredientName, thisIndex);
         if(index == this.stepList[this.getStepIndex(stepID)].ingredientList - 1){
             document.getElementById(stepID + "INGREDIENTS").appendChild(ingredientWindow);
 
         }
         else if(index == -1){
-            document.getElementById(id).parentNode.insertBefore(ingredientWindow, document.getElementById(this.stepList[this.getStepIndex(stepID)].ingredientList[0].id).nextSibling);
+            document.getElementById(stepID + "INGREDIENTS").insertBefore(ingredientWindow, document.getElementById(this.stepList[this.getStepIndex(stepID)].ingredientList[0].id).nextSibling);
         }
         else{
             document.getElementById(id).parentNode.insertBefore(ingredientWindow, document.getElementById(id).nextSibling);
         }
-        this.stepList[this.getStepIndex(stepID)].ingredientList.splice(index, 0, new IngredientInput(stepID, ingredientName, index + 1))
-        for(let i = index + 2; i < this.stepList[this.getStepIndex(stepID)].ingredientList.length; i++){
+        this.stepList[this.getStepIndex(stepID)].ingredientList.splice(thisIndex, 0, new IngredientInput(stepID, ingredientName, thisIndex))
+        
+        for(let i = thisIndex + 1; i < this.stepList[this.getStepIndex(stepID)].ingredientList.length; i++){
             this.stepList[this.getStepIndex(stepID)].ingredientList[i].position++;
         }
         
@@ -147,31 +149,33 @@ class RecipeWriter{
 
     getIngredientIndex(stepID, ingredID){
         let stepIndex = this.getStepIndex(stepID)
+        var position = 0;
         this.stepList[stepIndex].ingredientList.forEach(ingredient => {
             if(ingredient.id == ingredID){
-                return ingredient.position;
+                position = ingredient.position;
             }
         });
-        return 0;
+        return position;
     }
 
     getStepIndex(stepID){
+        var position = 0;
         this.stepList.forEach(step => {
             if(step.id == stepID){
-                return step.position;
+                position = step.position;
             }
         });
-        return 0;
+        return position;
     }
 
 
-    createIngredientInput(stepID, id){
+    createIngredientInput(stepID, id, index){
         let containerDiv = document.createElement('IngredientFormItem');
         containerDiv.id = id
 
         let ingredientCreationDiv = document.createElement('IngredientInput')
 
-        let ingredient = this.createInput("Ingredient: ", containerDiv.id + "input", "RecipeInput", "text");
+        let ingredient = this.createInput("Ingredient: ", id + "input", "RecipeInput", "text");
         
        
         let removeIngredientButton = new Button("Remove Ingredient", containerDiv.id, "RemoveButton", ()=>(stepID, this.removeIngredient(stepID, id, this.getIngredientIndex(stepID, id))));
@@ -201,7 +205,7 @@ class RecipeWriter{
     }
 
     addStep(index, id){
-
+        let thisIndex = index + 1;
         let stepName = "STEP" + IdManager.getID();
         let stepWindow = this.createStepInput(stepName);
         if(index == this.stepList.length - 1){
@@ -214,8 +218,8 @@ class RecipeWriter{
         else{
             document.getElementById(id).parentNode.insertBefore(stepWindow, document.getElementById(id).nextSibling);
         }
-        this.stepList.splice(index, 0, new StepInput(stepName, index))
-        for(let i = index + 2; i < this.stepList.length; i++){
+        this.stepList.splice(thisIndex, 0, new StepInput(stepName, thisIndex))
+        for(let i = thisIndex + 1; i < this.stepList.length; i++){
             this.stepList[i].position++;
         }
     }
@@ -287,7 +291,7 @@ class RecipeWriter{
             
             var ingredData = [];
             
-            step.ingredientList.forEach(ingred =>{
+            step.ingredientList.forEach(ingred =>{;
                 var thisIngred = this.parseIngredient(document.getElementById(ingred.id + "input").value);
                 if(!thisIngred){
                     alert("One of your ingredients '" + document.getElementById(ingred.id + "input").value + "' is not in the correct format")
@@ -353,7 +357,7 @@ class RecipeWriter{
         var ingredientData = {};
         var lastStop = 0;
         for(var i = 0; i < ingred.length; i++){
-            if(!(this.isNum(ingred[i])) && lastStop == 0){
+            if(!(this.isNum(ingred[i])) && lastStop == 0 && ingred[i] != "/" && ingred[i] != "."){
                 ingredientData["amount"] = ingred.substring(0, i);
                 lastStop = i;
             }
@@ -382,7 +386,7 @@ class RecipeWriter{
     ingredientCreate(name, unit, amount){
         let text = "                new Ingredient(\n"+
                    "                    '" + name + "',\n"+
-                   "                    " + amount + ",\n"+
+                   "                    '" + amount + "',\n"+
                    "                    '" + unit + "')";
         return text;
     }
@@ -392,7 +396,7 @@ class RecipeWriter{
                 "            " + number + ",\n" + 
                 "            '" + description + "',\n            [\n";
         ingredientData.forEach(ingredient => {
-            text += this.ingredientCreate(ingredient["name"], ingredient["unit"], ingredient["amount"]) + ",";
+            text += this.ingredientCreate(ingredient["name"], ingredient["unit"], ingredient["amount"]) + ",\n";
         });
         text += "\n            ],\n" + "            " + timeForCompletion + ")"
         return text;

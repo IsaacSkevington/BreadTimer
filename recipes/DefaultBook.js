@@ -1,3 +1,4 @@
 let RECIPELIST = [
-    "Sourdough"
+    "Sourdough",
+    "Chocolate Mug Cake"
 ];
