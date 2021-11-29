@@ -48,6 +48,14 @@ class RecipeBook{
         document.getElementById("recipe").appendChild(form);
     }
 
+    changePreferences(){
+        
+        this.deleteLinks();
+        let homeButton = new Button("Home", "main", "HomeButton", ()=>(this.display())).export();
+        let preferenceWindow = USER.changePreferences();
+        document.getElementById("main").appendChild(homeButton);
+        document.getElementById("main").appendChild(preferenceWindow)
+    }
 
     display(){
         try{
@@ -56,15 +64,19 @@ class RecipeBook{
         catch{
 
         }
+        this.recipeLinkIds = [];
         let mainDiv = document.createElement('div');
         mainDiv.id = "main";
 
+        let preferenceChangeButton = new Button("Preferences", "main", "PreferenceButton", ()=>(this.changePreferences()));
+        this.recipeLinkIds.push(preferenceChangeButton.id)
+        mainDiv.appendChild(preferenceChangeButton.export());
 
         let recipeDiv = document.createElement('div');
         recipeDiv.id = "recipe";
         recipeDiv.classList.add("recipeBody")
 
-        this.recipeLinkIds = [];            
+             
 
 
         RECIPELIST.forEach(recipeName => {
@@ -94,4 +106,4 @@ class RecipeBook{
     }
 
 }
-let RECIPEBOOK = new RecipeBook("DefaultBook");
+RECIPEBOOK = new RecipeBook(USER.preferences["Default Recipe Book"]);

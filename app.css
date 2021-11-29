@@ -129,7 +129,7 @@ textarea.RecipeInput{
 }
 
 
-input.CreateButton{
+.CreateButton{
     border: 1px solid #d6ad60;
     background: none;
     border-radius: 1rem;
@@ -140,7 +140,7 @@ input.CreateButton{
     font-size: 20pt
 }
 
-input.CreateButton:hover{
+.CreateButton:hover{
     background: #d6ad60;
     cursor: pointer;
 }
@@ -160,6 +160,88 @@ HomeButton:hover{
     cursor: pointer;
 }
 
+
+PreferenceButton{
+    border: 1px solid #797979;
+    background: none;
+    border-radius: 1rem;
+    padding : 7px;
+    transition-duration: 500ms;
+    display: inline-block;
+    margin: 1%;
+}
+
+PreferenceButton:hover{
+    background:#797979;
+    cursor: pointer;
+}
+
+.PreferencesForm{
+
+    height: 50%;
+}
+
+PreferencesHeading{
+    
+    font-size: 30pt;
+    display: inline-block;
+    margin-bottom: 2%;
+    text-decoration: underline;
+}
+
+LeftPreferences{
+
+    width: 50%;
+}
+RightPreferences{
+
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+MainPreferences{
+    
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+}
+
+Requirements{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3%;
+}
+
+PreferenceCheck{
+
+}
+
+RecipeBooks{
+    
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+}
+.SaveButton{
+    border: 1px solid #d6ad60;
+    background: none;
+    border-radius: 1rem;
+    padding : 7px;
+    transition-duration: 500ms;
+    display: inline-block;
+    margin: 1%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12pt;
+}
+
+.SaveButton:hover{
+    background: #d6ad60;
+    cursor: pointer;
+}
 
 AddButton{
     border: 1px solid #d6ad60;

@@ -1,3 +1,8 @@
+var nutellaSubstitute = new Ingredient('Nutella', 1, 'Teaspoon');
+if(contains(USER.preferences["Requirements"], "Vegan") || contains(USER.preferences["Requirements"], "Nut Allergy")){
+    nutellaSubstitute = new Ingredient("Dark Chocolate", 20, 'g');
+}
+
 var r = new Recipe(
 
     'Chocolate Mug Cake',
@@ -41,10 +46,7 @@ var r = new Recipe(
             3,
             'Add the nutella to the batter',
             [
-                new Ingredient(
-                    'Nutella',
-                    1,
-                    'Teaspoon'),
+                nutellaSubstitute
             ],
             60),
 

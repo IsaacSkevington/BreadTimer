@@ -2,6 +2,17 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
+    <script>
+        function contains(array, value){
+            for(let i = 0; i < array.length; i++){
+                if (array[i] == value){
+                    return true;
+                }
+            }
+            return false;
+        }
+    </script>
+    <script src = "UserEnv.js"></script>
     <script src = "RecipeWriter.js"></script>
     <script src = "IdManager.js"></script>
     <script src = "RecipeBook.js"></script>
