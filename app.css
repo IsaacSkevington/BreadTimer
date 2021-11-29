@@ -281,7 +281,7 @@ RecipeLink{
     transition-duration: 500ms;
     display: inline-block;
 
-    margin: 1%;
+    margin: 0.5%;
 }
  
 RecipeLink:hover{
@@ -297,6 +297,7 @@ CreateRecipe{
     transition-duration: 500ms;
     display: inline-block;
 
+    margin: 10%;
 }
 
 CreateRecipe:hover{
