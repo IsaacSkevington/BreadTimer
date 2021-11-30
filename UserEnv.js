@@ -120,6 +120,5 @@ class User{
 }
 let USER = new User();
 
-// Put the object into storage
 
 
