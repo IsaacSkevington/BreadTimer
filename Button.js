@@ -32,7 +32,10 @@ class Button{
 
     hide(){
         var elem = document.getElementById(this.id);
-        elem.parentNode.removeChild(elem);
+        if(elem != null){
+            elem.parentNode.removeChild(elem);
+        }
+
     }
 
 }
