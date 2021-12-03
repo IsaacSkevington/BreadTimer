@@ -111,9 +111,18 @@ class Timer{
         this.pauseFlag = true;
         document.getElementById(this.timerdisplayid).innerHTML = Timer.secsToTime(0);
         document.getElementById(this.timerdisplayid).className = "Complete";
-
-        this.pauseButton.hide();
-        this.stopButton.hide();
+        try{
+            this.pauseButton.hide();
+        }
+        catch{
+            
+        }
+        try{
+            this.stopButton.hide();
+        }
+        catch{
+            
+        }
         this.endFunction();
     }
 

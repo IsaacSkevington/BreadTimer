@@ -51,7 +51,7 @@ var r = new Recipe(
 
                 new Ingredient(
                     "Wholemeal flour",
-                    35,
+                    90,
                     "g"
                 ),
 
