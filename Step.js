@@ -72,14 +72,15 @@ class Step{
 
 
         document.getElementById(window).appendChild(stepWindow);
-        this.animate(stepSeparatorId);
+        if(this.ingredients.length > 0){
+            this.animate(stepSeparatorId);
+        }
         this.startbutton = new Button("Start step", window, "StartButton", ()=>(this.start(end)));
         this.startbutton.show();
     }
 
 
     animate(id){
-        
         document.getElementById(id).style.height = "auto";
         var divHeight;
         var obj = document.getElementById(id);
