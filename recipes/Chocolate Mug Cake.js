@@ -40,7 +40,7 @@ var r = new Recipe(
             [
                 new Ingredient(
                     'Almond Milk',
-                    '0.375',
+                    '3/8',
                     'Cup'),
             ],
             120),
