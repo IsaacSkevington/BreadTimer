@@ -9,7 +9,7 @@ if(contains(USER.preferences["Requirements"], "Vegan")){
 var r = new Recipe(
 
     'Chocolate Mug Cake',
-    'A ' + vegantext + 'chocolate mug cake',
+    'A ' + veganText + 'chocolate mug cake',
     [
         new Step(
             1,
