@@ -7,7 +7,7 @@ class RecipeBook{
     }
 
     getAvailableRecipes(){
-        var link = "recipes/" + this.name + ".js";
+        var link = "RecipeBooks/" + this.name + ".js";
         var script = document.createElement('script');
         script.src = link;
         script.onload = ()=>(this.display());
@@ -19,8 +19,10 @@ class RecipeBook{
         var script = document.createElement('script');
         script.src = link;
         document.getElementsByTagName('head')[0].appendChild(script);
-        script.onload = ()=>(this.displayRecipe(rname))
+        script.onload = ()=>(this.loadFoods(rname, ()=>(this.makeSubstitutions(rname))))
     }
+
+
 
     deleteLinks(){
         let links = this.recipeLinkIds;
@@ -28,6 +30,19 @@ class RecipeBook{
             var elem = document.getElementById(id);
             elem.parentNode.removeChild(elem);
         });
+    }
+
+
+    loadFoods(recipe, endFunction){
+        this.recipes[recipe].loadFoods(()=>(endFunction()));
+    }
+
+    makeSubstitutions(recipe){
+        if(!this.recipes[recipe].fulfilsConditions(USER.preferences["Requirements"]) && this.recipes[recipe].canFulfilConditions(USER.preferences["Requirements"])){
+            this.recipes[recipe].fulfilConditions(USER.preferences["Requirements"]);
+        }
+        this.displayRecipe(recipe);
+        
     }
 
     displayRecipe(recipe){

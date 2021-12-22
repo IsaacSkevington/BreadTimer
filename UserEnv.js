@@ -1,4 +1,4 @@
-let REQUIREMENTS = ["Vegan", "Nut Allergy"];
+let REQUIREMENTS = [VEGAN, NUTFREE, GLUTENFREE];
 let RECIPEBOOKS = ["DefaultBook", "IsaacsBook"];
 let RECIPELIST;
 let RECIPEBOOK;

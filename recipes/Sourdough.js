@@ -8,12 +8,12 @@ var r = new Recipe(
             "Mix levain ingredients",
             [
                 new Ingredient(
-                    "White flour",
+                    "Plain flour",
                     35,
                     "g"
                 ),
                 new Ingredient(
-                    "Starter",
+                    "Sourdough Starter",
                     35,
                     "g"
                 ),
@@ -44,7 +44,7 @@ var r = new Recipe(
             "Mix just until your dough comes together",
             [
                 new Ingredient(
-                    "White flour",
+                    "Plain flour",
                     810,
                     "g"
                 ),

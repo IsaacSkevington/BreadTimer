@@ -6,23 +6,33 @@ class Ingredient{
         this.unit = unit;
     }
 
+
+    checkDietaryInformation(conditions){
+        return FOODS[this.name].satisfiesDietaryRequirements(conditions);
+    }
+
+    getNutritionalInfo(){
+        return FOODS[this.name].getScaledNutrition(this);
+    }
+
     equals(other){
         return this.name == other.name && this.unit == other.unit;
     }
 
-    isFraction(string){
-        for(var i = 0; i < string.length; i++){
-            if(string[i] == '/'){
+    isFraction(){
+        for(var i = 0; i < this.amount.toString().length; i++){
+            if(this.amount.toString()[i] == '/'){
                 return true;
             }
         }
         return false;
     }
 
-    isImproperFraction(string){
-        if(this.isFraction(string)){
-            let number = this.convertFromFraction(string);
-            return number >= 1;
+    isImproperFraction(){
+        if(this.isFraction()){
+            let newIngredient = new Ingredient(this.name, this.amount, this.unit);
+            newIngredient.convertFromFraction();
+            return newIngredient.amount >= 1;
         }
         return false;
     }
@@ -30,6 +40,7 @@ class Ingredient{
     improperFractionToMixedNumber(string){
         let numerator;
         let denominator;
+        string = string.toString();
         for(var i = 0; i < string.length; i++){
             if(string[i] == '/'){
                 numerator = parseFloat(string.substring(0, i));
@@ -50,26 +61,27 @@ class Ingredient{
         
     }
 
-    convertFromFraction(string){
-        for(var i = 0; i < string.length; i++){
-            if(string[i] == '/'){
-                return parseFloat(string.substring(0, i)) / parseFloat(string.substring(i+1));
+    convertFromFraction(){
+        for(var i = 0; i < this.amount.toString().length; i++){
+            if(this.amount.toString()[i] == '/'){
+                this.amount = parseFloat(this.amount.toString().substring(0, i)) / parseFloat(this.amount.toString().substring(i+1))
+                return true;
             }
         }
-        return 0;
+        return false;
     }
     
-    convertToFraction(decimal){
+    convertToFraction(){
         var gcd = function(a, b) {
             if (b < 0.0000001) return a;                
           
             return gcd(b, Math.floor(a % b));           
           };
           
-          var len = decimal.toString().length - 2;
+          var len = this.amount.toString().length - 2;
           
           var denominator = Math.pow(10, len);
-          var numerator = decimal * denominator;
+          var numerator = this.amount * denominator;
           
           var divisor = gcd(numerator, denominator);    
           
@@ -80,26 +92,38 @@ class Ingredient{
     }
 
     add(other){
-        let thisAmount = parseFloat(this.amount);
-        let otherAmount = parseFloat(other.amount);
-        if(this.isFraction(this.amount)){
-            thisAmount = this.convertFromFraction(this.amount);
+        if(this.isFraction()){
+            this.convertFromFraction();
         }
-        if(this.isFraction(other.amount)){
-            otherAmount = this.convertFromFraction(other.amount);
+        if(other.isFraction()){
+            other.convertFromFraction();
         }
-        if(this.isFraction(this.amount) && this.isFraction(other.amount)){
-            return new Ingredient(this.name, convertToFraction(thisAmount + otherAmount), this.unit);
+        var newIngredient = new Ingredient(this.name, this.amount, this.unit);
+        newIngredient.amount = this.amount + other.amount
+        if(this.isFraction() && other.isFraction()){
+
+            newIngredient.convertToFraction();
+
+        }
+        return newIngredient;
+        
+    }
+
+    scale(factor){
+        if(this.isFraction()){
+            this.convertFromFraction();
+            this.amount *= factor
+            this.convertToFraction()
         }
         else{
-            return new Ingredient(this.name, thisAmount + otherAmount, this.unit);
+            this.amount *= factor;
         }
-        
+
     }
 
     toString(){
         let amount = this.amount;
-        if(this.isImproperFraction(this.amount)){
+        if(this.isImproperFraction()){
             amount = this.improperFractionToMixedNumber(this.amount);
         }
         return amount + " " + this.unit + " " + this.name;

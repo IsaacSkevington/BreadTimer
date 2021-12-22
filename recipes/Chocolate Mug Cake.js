@@ -1,22 +1,19 @@
-var nutellaSubstitute = new Ingredient('Nutella', 1, 'Teaspoon');
-if(contains(USER.preferences["Requirements"], "Vegan") || contains(USER.preferences["Requirements"], "Nut Allergy")){
-    nutellaSubstitute = new Ingredient("Dark Chocolate", 20, 'g');
-}
-var veganText = ""
-if(contains(USER.preferences["Requirements"], "Vegan")){
-    veganText = "vegan ";
-}
+setSubstitute(
+    new Ingredient('Nutella', 1, 'tsp'),
+    new Ingredient("Dark Chocolate", 20, 'g')
+)
+
 var r = new Recipe(
 
     'Chocolate Mug Cake',
-    'A ' + veganText + 'chocolate mug cake',
+    'A chocolate mug cake',
     [
         new Step(
             1,
             'Measure out and mix the dry ingredients in a mug',
             [
                 new Ingredient(
-                    'Flour',
+                    'Plain Flour',
                     '1/4',
                     'Cup'),
                 new Ingredient(
@@ -28,7 +25,7 @@ var r = new Recipe(
                     '1/4',
                     'Cup'),
                 new Ingredient(
-                    'Baking powder',
+                    'Baking Powder',
                     '8/4',
                     'Teaspoon'),
             ],
@@ -47,9 +44,13 @@ var r = new Recipe(
 
         new Step(
             3,
-            'Add the ' + nutellaSubstitute.name + ' to the batter',
+            'Add the Nutella to the batter',
             [
-                nutellaSubstitute
+                new Ingredient(
+                    "Nutella",
+                    1,
+                    "tsp"
+                )
             ],
             60),
 

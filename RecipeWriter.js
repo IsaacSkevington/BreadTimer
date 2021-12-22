@@ -27,7 +27,18 @@ class RecipeWriter{
 
 
 
+    editRecipe(recipe){
+        let form = this.makeRecipeCreationForm();
+        form.getElementById("nameInput").value = recipe.name;
+        form.getElementById("descInput").value = recipe.desc;
+        let currentStepID = null;
+        let currentStepIndex = -1
+        recipe.steps.forEach(step => {
+            form.getElementsById()
+            currentStepID = this.stepList[this.stepList.length() - 1]
+        });
 
+    }
 
 
 

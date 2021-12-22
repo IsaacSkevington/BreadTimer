@@ -6,7 +6,72 @@ class Recipe{
         this.stepOrder = this.parseGroups(stepGroups, repeats)
         this.ingredients = this.sumingredients();
         this.timeToComplete = this.sumStepTimes();
+    }
 
+    loadFoods(endFunction){
+        var loadList = [];
+        this.ingredients.forEach(ingredient => {
+            if(FOODS[ingredient.name] == null){
+                loadList.push(ingredient);
+            }
+        });
+        loadFood(loadList, -1, ()=>(this.loadSubs(endFunction)));
+    }
+
+    loadSubs(endFunction){
+        var subsList = []
+        this.ingredients.forEach(ingredient => {
+            SUBSTITUTIONS[ingredient.name].ingredientList.forEach(sub => {
+                if(!(sub.name in subsList) && sub.name != ingredient.name){
+                    subsList.push(sub);
+                }
+            });
+        });
+        loadFood(subsList, -1, endFunction);
+    }
+    
+
+    fulfilConditions(conditions){
+        for(var i = 0; i < this.ingredients.length; i++){
+            var ingredient = this.ingredients[i]
+            if(FOODS[ingredient.name].satisfiesDietaryRequirements(conditions)){
+                continue;
+            }
+            let substitutions = SUBSTITUTIONS[ingredient.name].getSubstituteIngredients(ingredient, conditions);
+            let substitution = substitutions[0];
+            for(var j = 0; j < this.steps.length; j++){
+                this.steps[j].replaceIngredient(ingredient, substitution);
+            }
+        }
+        this.ingredients = this.sumingredients();
+    }
+
+    canFulfilConditions(conditions){
+        for(var i = 0; i < this.ingredients.length; i++){
+            var ingredient = this.ingredients[i]
+            if(FOODS[ingredient.name].satisfiesDietaryRequirements(conditions)){
+                continue;
+            }
+            if(ingredient.name in SUBSTITUTIONS){
+                if(SUBSTITUTIONS[ingredient.name].findSubstitution(ingredient.name, conditions) == null){
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        return true
+    }
+
+    fulfilsConditions(conditions){
+        for(var i = 0; i < this.ingredients.length; i++){
+            var ingredient = this.ingredients[i]
+            if(!FOODS[ingredient.name].satisfiesDietaryRequirements(conditions)){
+                return false
+            }
+        }
+        return true;
     }
 
     parseGroups(groups, repeats){

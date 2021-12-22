@@ -6,7 +6,6 @@ class Step{
         this.time = time;
     }
 
-
     static createIngredientsWindow(ingredients){
         let ingreds = document.createElement('Ingredients');
         let title = document.createElement('IngredientsTitle')
@@ -30,6 +29,17 @@ class Step{
             out += "-" + item.toString() + sep;
         });
         return out;
+    }
+
+    replaceIngredient(ingredientFrom, ingredientTo){
+        for(var i = 0; i < this.ingredients.length; i++){
+            if(this.ingredients[i].name == ingredientFrom.name){
+                ingredientTo.scale(this.ingredients[i].amount/ingredientFrom.amount);
+                this.ingredients[i] = ingredientTo;
+                this.description = this.description.replace(ingredientFrom.name, ingredientTo.name);
+            }
+        }
+
     }
 
     display(window, sound, end){
@@ -100,7 +110,7 @@ class Step{
     start(endFunction){
         this.startbutton.hide();
         this.endFunction = endFunction;
-        this.timer = new Timer(this.time, ()=>(this.end()), "timer.mp3");
+        this.timer = new Timer(this.time, ()=>(this.end()), "data/timer.mp3");
         this.timer.show(this.id, 9);
         this.timer.start();
     }
