@@ -22,11 +22,11 @@ var r = new Recipe(
                     'Cup'),
                 new Ingredient(
                     'Cocoa Powder',
-                    '1/4',
+                    '1/8',
                     'Cup'),
                 new Ingredient(
                     'Baking Powder',
-                    '8/4',
+                    '2',
                     'Teaspoon'),
             ],
             180),

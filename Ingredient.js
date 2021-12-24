@@ -1,3 +1,4 @@
+
 class Ingredient{
 
     constructor(name, amount, unit){
@@ -17,6 +18,44 @@ class Ingredient{
 
     equals(other){
         return this.name == other.name && this.unit == other.unit;
+    }
+
+    
+    gcd(a, b) {
+        if (b < 0.0000001){
+            return a;                
+        }
+    
+        return this.gcd(b, Math.floor(a % b));           
+    }
+
+  
+
+    lcm(list) {
+        var n = 1;
+        for(var i = 0; i < list.length; i++){
+            n = list[i] * n / this.gcd(list[i], n);
+        }
+        
+        return n;
+}
+
+    simplifiedFraction(numerator, denominator){
+
+        if(denominator % numerator == 0){
+            var greatestDivisor = gcd(numerator, denominator)
+            if(denominator/greatestDivisor == 1){
+                return numerator;
+            }
+            return numerator/greatestDivisor + "/" + denominator/greatestDivisor;
+        }
+        else{
+            if(denominator == 1){
+                return numerator;
+            }
+            return numerator + "/" + denominator
+        }
+
     }
 
     isFraction(){
@@ -71,24 +110,29 @@ class Ingredient{
         return false;
     }
     
-    convertToFraction(){
-        var gcd = function(a, b) {
-            if (b < 0.0000001) return a;                
-          
-            return gcd(b, Math.floor(a % b));           
-          };
-          
-          var len = this.amount.toString().length - 2;
-          
-          var denominator = Math.pow(10, len);
-          var numerator = this.amount * denominator;
-          
-          var divisor = gcd(numerator, denominator);    
-          
-          numerator /= divisor;                         
-          denominator /= divisor;                       
-          
-          return Math.floor(numerator) + '/' + Math.floor(denominator)
+    convertToFraction(denominators = [2,3,4,8,16]){
+        
+        let decimal = this.amount;        
+        let lcmDenominators = this.lcm(denominators);
+        let numerator = decimal * lcmDenominators
+        let currentError = 1000000;
+        let closestDenominator = 0;
+        let closestNumerator = 0;
+
+        
+        for(var i = 0; i < denominators.length; i++){
+            var divisor = lcmDenominators/denominators[i];
+            var currentNumerator = numerator/divisor;
+            currentNumerator = Math.round(currentNumerator);
+            var resultingDecimal = currentNumerator/denominators[i]
+            var error = Math.abs(decimal - resultingDecimal);
+            if(error < currentError){
+                currentError = error;
+                closestDenominator = denominators[i];
+                closestNumerator = currentNumerator;
+            }
+        }
+        this.amount = this.simplifiedFraction(closestNumerator, closestDenominator);
     }
 
     add(other){

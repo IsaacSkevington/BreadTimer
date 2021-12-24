@@ -40,6 +40,14 @@ class Substitutes{
         }
         return false;
     }
+    getIngredientWithUnit(name, unit){
+        for(var i = 0; i < this.ingredientList.length; i++){
+            if(this.ingredientList[i].name == name && this.ingredientList[i].unit == unit){
+                return this.ingredientList[i];
+            }
+        }
+        return false;
+    }
 
     canChangeUnit(unit1, unit2){
         let unit1Found = false;
@@ -84,24 +92,28 @@ class Substitutes{
 
     }
 
+
     changeUnit(toChange, newUnit){
         if(toChange.unit == newUnit){
             return toChange;
         }
         var fraction = false;
-        if(toChange.isFraction(toChange.amount)){
+        if(toChange.isFraction()){
             toChange.convertFromFraction();
             fraction = true;
         }
         if(UNITCONVERTOR.canConvert(toChange.unit, newUnit)){
             return UNITCONVERTOR.convert(toChange, newUnit);
         }
-        let generalToChange = this.getIngredient(toChange.name, toChange.unit);
-        let newIngredient = this.getIngredient(toChange.name, newUnit);
+        let generalToChange = EQUALS[toChange.name].getIngredientWithUnit(toChange.name, toChange.unit);
+        let newIngredient = EQUALS[toChange.name].getIngredientWithUnit(toChange.name, newUnit);
+        if(generalToChange == false || newIngredient == false){
+            return toChange;
+        }
         newIngredient.amount = toChange.amount;
         newIngredient.scale(newIngredient.amount / generalToChange.amount)
         if(fraction){
-            newIngredient.amount = newIngredient.convertToFraction(newIngredient.amount)
+            newIngredient.convertToFraction()
         }
         return newIngredient;
     }  

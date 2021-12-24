@@ -13,8 +13,8 @@ FOODS[NAME] = f;
 setListEqual(
     NAME,
     [
-        "160ml",
-        "110.74g"
+        "145ml",
+        "100g"
     ]
 )
 
