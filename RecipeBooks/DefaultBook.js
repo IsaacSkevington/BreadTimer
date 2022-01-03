@@ -1,3 +1,4 @@
 RECIPELIST = [
     "Sourdough",
+    "Clementine Cake",
 ];
