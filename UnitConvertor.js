@@ -55,7 +55,10 @@ class UnitConvertor{
 
     convert(ingredient, unit){
         var amount = ingredient.amount * this.unitMap[ingredient.unit][unit];
-        return new Ingredient(ingredient.name, amount, unit);
+
+        let i = new Ingredient(ingredient.name, amount, unit);
+        i.prep = ingredient.prep;
+        return i;
     }
 
 }

@@ -24,4 +24,17 @@ class NutritionInfo{
             this.fat * factor
         );
     }
+
+    toCreator(indent){
+        var indentSpaces = "";
+        for(var i = 0; i < indent; i++){
+            indentSpaces += " ";
+        }
+        return indentSpaces + "new NutritionInfo(" + 
+               indentSpaces + "    " + this.calories + ",\n" +
+               indentSpaces + "    " + this.protein + ",\n" +
+               indentSpaces + "    " + this.sugars + ",\n" +
+               indentSpaces + "    " + this.fats + "\n" +
+               indentSpaces + ")";
+    }
 }

@@ -1,10 +1,32 @@
 
 class Ingredient{
 
-    constructor(name, amount, unit){
-        this.name = name;
+    constructor(description, amount, unit){
+        this.parseDescription(description);
         this.amount = amount;
-        this.unit = unit;
+        if(unit == ""){
+            this.unit = "pcs";
+        }
+        else{
+            this.unit = unit;
+        }
+        
+    }
+
+    parseDescription(description){
+        var separated = false;
+        for(var i = 0; i < description.length; i++){
+            if(description[i] == ','){
+                this.name = description.substring(0, i);
+                this.prep = description.substring(i+1);
+                separated = true;
+                break;
+            }
+        }
+        if(!separated){
+            this.name = description;
+        }
+        this.name = this.name.replace(/\b\w/g, l => l.toUpperCase())
     }
 
 
@@ -17,7 +39,7 @@ class Ingredient{
     }
 
     equals(other){
-        return this.name == other.name && this.unit == other.unit;
+        return this.name == other.name;
     }
 
     
@@ -142,8 +164,26 @@ class Ingredient{
         if(other.isFraction()){
             other.convertFromFraction();
         }
-        var newIngredient = new Ingredient(this.name, this.amount, this.unit);
-        newIngredient.amount = this.amount + other.amount
+        let prepAddition;
+        if(this.prep == other.prep){
+            prepAddition = ", " + this.prep;
+        }
+        else{
+            if(this.prep == null && other.prep == null){
+                prepAddition = "";
+            }
+            else if(this.prep == null){
+                prepAddition = ", " + other.amount + " " + other.unitToString() + " " + other.prep;
+            }
+            else if(other.prep == null){
+                prepAddition = ", " + this.amount + " " + this.unitToString() + " " + this.prep;
+            }
+            else{
+                prepAddition = ", " + this.amount + " " + this.unitToString() + " " + this.prep + "; " + other.amount + " " + other.unitToString() + " " + other.prep;
+            }
+        }
+        var newIngredient = new Ingredient(this.name + prepAddition, this.amount, this.unit);
+        newIngredient.amount = parseFloat(this.amount) + parseFloat(other.amount);
         if(this.isFraction() && other.isFraction()){
 
             newIngredient.convertToFraction();
@@ -165,12 +205,30 @@ class Ingredient{
 
     }
 
+    unitToString(){
+        if(this.unit == "pcs"){
+            return "";
+        }
+        else{
+            return this.unit
+        }
+    }
+
     toString(){
         let amount = this.amount;
         if(this.isImproperFraction()){
             amount = this.improperFractionToMixedNumber(this.amount);
         }
-        return amount + " " + this.unit + " " + this.name;
+
+        let displayUnit;
+
+        if(this.prep == null){
+            return amount + " " + this.unitToString() + " " + this.name;
+        }
+        else{
+            return amount + " " + this.unitToString() + " " + this.name + ", " + this.prep;
+        }
+        
     }
 
 }

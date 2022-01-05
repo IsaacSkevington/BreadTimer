@@ -4,6 +4,14 @@ class Substitutes{
         this.ingredientList = ingredientList;
     }
 
+    getConvertableUnits(){
+        let units = [];
+        this.ingredientList.forEach(ingredient => {
+            units.push(ingredient.unit);
+        });
+        return units;
+    }
+
     canSubstitute(name1, name2){
         let name1Found = false;
         let name2Found = false;
@@ -108,13 +116,33 @@ class Substitutes{
         let generalToChange = EQUALS[toChange.name].getIngredientWithUnit(toChange.name, toChange.unit);
         let newIngredient = EQUALS[toChange.name].getIngredientWithUnit(toChange.name, newUnit);
         if(generalToChange == false || newIngredient == false){
+            let convertableUnits = this.getConvertableUnits();
+            if(convertableUnits.includes(toChange.unit)){
+                for(var i = 0; i < convertableUnits.length; i++){
+                    if(UNITCONVERTOR.canConvert(newUnit, convertableUnits[i])){
+                        newIngredient = this.changeUnit(toChange, convertableUnits[i]);
+                        newIngredient = UNITCONVERTOR.convert(newIngredient, newUnit);
+                        return newIngredient
+                    }
+                }
+            }
+            else if(convertableUnits.includes(newUnit)){
+                for(var i = 0; i < convertableUnits.length; i++){
+                    if(UNITCONVERTOR.canConvert(toChange.unit, convertableUnits[i])){
+                        newIngredient = UNITCONVERTOR.convert(toChange, convertableUnits[i]);
+                        newIngredient = this.changeUnit(newIngredient, newUnit);
+                        return newIngredient
+                    }
+                }
+            }
+
             return toChange;
         }
-        newIngredient.amount = toChange.amount;
-        newIngredient.scale(newIngredient.amount / generalToChange.amount)
+        newIngredient.scale(toChange.amount / generalToChange.amount)
         if(fraction){
             newIngredient.convertToFraction()
         }
+        newIngredient.prep = toChange.prep;
         return newIngredient;
     }  
 

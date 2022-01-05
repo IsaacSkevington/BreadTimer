@@ -400,7 +400,7 @@ StepInfo{
     display: flex;
     justify-content: space-around;
     padding: 5%;
-    width: 50%;
+    width: 75%;
 }
 
 StepDescription{

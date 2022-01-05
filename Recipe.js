@@ -4,8 +4,8 @@ class Recipe{
         this.name = name;
         this.steps = steps;
         this.stepOrder = this.parseGroups(stepGroups, repeats)
-        this.ingredients = this.sumingredients();
         this.timeToComplete = this.sumStepTimes();
+        this.sumingredients();
     }
 
     loadFoods(endFunction){
@@ -21,11 +21,13 @@ class Recipe{
     loadSubs(endFunction){
         var subsList = []
         this.ingredients.forEach(ingredient => {
-            SUBSTITUTIONS[ingredient.name].ingredientList.forEach(sub => {
-                if(!(sub.name in subsList) && sub.name != ingredient.name){
-                    subsList.push(sub);
-                }
-            });
+            if(SUBSTITUTIONS[ingredient.name] != null){
+                SUBSTITUTIONS[ingredient.name].ingredientList.forEach(sub => {
+                    if(!(sub.name in subsList) && sub.name != ingredient.name){
+                        subsList.push(sub);
+                    }
+                });
+            }
         });
         loadFood(subsList, -1, endFunction);
     }
@@ -49,17 +51,23 @@ class Recipe{
     canFulfilConditions(conditions){
         for(var i = 0; i < this.ingredients.length; i++){
             var ingredient = this.ingredients[i]
-            if(FOODS[ingredient.name].satisfiesDietaryRequirements(conditions)){
-                continue;
-            }
-            if(ingredient.name in SUBSTITUTIONS){
-                if(SUBSTITUTIONS[ingredient.name].findSubstitution(ingredient.name, conditions) == null){
+            if(FOODS[ingredient.name] != null){
+                if(FOODS[ingredient.name].satisfiesDietaryRequirements(conditions)){
+                    continue;
+                }
+                if(ingredient.name in SUBSTITUTIONS){
+                    if(SUBSTITUTIONS[ingredient.name].findSubstitution(ingredient.name, conditions) == null){
+                        return false;
+                    }
+                }
+                else{
                     return false;
                 }
             }
             else{
                 return false;
             }
+            
         }
         return true
     }
@@ -67,9 +75,14 @@ class Recipe{
     fulfilsConditions(conditions){
         for(var i = 0; i < this.ingredients.length; i++){
             var ingredient = this.ingredients[i]
-            if(!FOODS[ingredient.name].satisfiesDietaryRequirements(conditions)){
-                return false
+            if(FOODS[ingredient.name] != null){
+                if(!FOODS[ingredient.name].satisfiesDietaryRequirements(conditions)){
+                    return false
+                }
             }
+            else{
+                return false;
+            }   
         }
         return true;
     }
@@ -107,9 +120,21 @@ class Recipe{
                 added = false;
                 for(var k = 0; k < out.length; k++){
                     if(this.steps[this.stepOrder[i]].ingredients[j].equals(out[k])){
-                        out[k] = this.steps[this.stepOrder[i]].ingredients[j].add(out[k]);
-                        added = true;
-                        break;
+                        if(this.steps[this.stepOrder[i]].ingredients[j].unit == out[k].unit){
+                            out[k] = this.steps[this.stepOrder[i]].ingredients[j].add(out[k]);
+                            added = true;
+                            break;
+                        }
+                        else{
+                            if(EQUALS[out[k].name] != null){
+                                out[k] = EQUALS[out[k].name].changeUnit(out[k], this.steps[this.stepOrder[i]].ingredients[j].unit);
+                                if(this.steps[this.stepOrder[i]].ingredients[j].unit == out[k].unit){
+                                    out[k] = this.steps[this.stepOrder[i]].ingredients[j].add(out[k]);
+                                    added = true;
+                                }
+                            }
+                        }
+                        
                     }
                 }
                 if(!added){
@@ -117,7 +142,7 @@ class Recipe{
                 }
             }
         }
-        return out;
+        this.ingredients = out;
     }
 
     sumStepTimes(){

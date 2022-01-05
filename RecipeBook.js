@@ -38,6 +38,7 @@ class RecipeBook{
     }
 
     makeSubstitutions(recipe){
+        this.recipes[recipe].sumingredients();
         if(!this.recipes[recipe].fulfilsConditions(USER.preferences["Requirements"]) && this.recipes[recipe].canFulfilConditions(USER.preferences["Requirements"])){
             this.recipes[recipe].fulfilConditions(USER.preferences["Requirements"]);
         }

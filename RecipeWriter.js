@@ -382,6 +382,8 @@ class RecipeWriter{
     }
 
     create(name, description, stepData, groupData, repeatData){
+        name = name.replace("'", "\\'");
+        description = description.replace("'", "\\'");
         let text = "var r = new Recipe(\n\n" +
                 "    '" + name + "',\n" + 
                 "    '" + description + "',\n    [\n";
@@ -395,6 +397,7 @@ class RecipeWriter{
     }
 
     ingredientCreate(name, unit, amount){
+        name = name.replace("'", "\\'");
         let text = "                new Ingredient(\n"+
                    "                    '" + name + "',\n"+
                    "                    '" + amount + "',\n"+
@@ -403,6 +406,7 @@ class RecipeWriter{
     }
 
     stepCreate(number, description, ingredientData, timeForCompletion){
+        description = description.replace("'", "\\'");
         let text = "        new Step(\n" +
                 "            " + number + ",\n" + 
                 "            '" + description + "',\n            [\n";

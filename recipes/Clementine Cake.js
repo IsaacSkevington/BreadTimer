@@ -33,7 +33,7 @@ var r = new Recipe(
 
         new Step(
             4,
-            'Preheat the oven to gas mark 5 / 190oC.',
+            'Preheat the oven to gas mark 5 / 190°C.',
             [
 
             ],
@@ -54,7 +54,7 @@ var r = new Recipe(
                 new Ingredient(
                     'eggs',
                     '6',
-                    'g'),
+                    ''),
 
             ],
             180),

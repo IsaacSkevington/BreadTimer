@@ -1,3 +1,3 @@
-let VEGAN = "vegan"
-let NUTFREE = "nut allergy"
-let GLUTENFREE = "gluten free"
+let VEGAN = "VEGAN"
+let NUTFREE = "NUTFREE"
+let GLUTENFREE = "GLUTENFREE"

@@ -10,7 +10,7 @@ var r = new Recipe(
                 new Ingredient(
                     'dried red chillies, seeded and chopped',
                     '2',
-                    'pieces'),
+                    ''),
                 new Ingredient(
                     'ginger root, peeled and sliced',
                     '2.5',
@@ -22,15 +22,15 @@ var r = new Recipe(
                 new Ingredient(
                     'garlic, peeled',
                     '1',
-                    'clove'),
+                    'cloves'),
                 new Ingredient(
                     'shrimp paste',
                     '2',
                     'tsp'),
                 new Ingredient(
-                    'kaffir lime, chopped',
+                    'kaffir lime leaves, chopped',
                     '1',
-                    'leaf'),
+                    ''),
                 new Ingredient(
                     'ground coriander',
                     '1',
@@ -81,7 +81,7 @@ var r = new Recipe(
 
         new Step(
             4,
-            'Gradually add the coconut milk, stirring constantly (don't worry if the mixture starts to look curdled at this stage).',
+            'Gradually add the coconut milk, stirring constantly (don\'t worry if the mixture starts to look curdled at this stage).',
             [
                 new Ingredient(
                     'coconut milk',
@@ -96,9 +96,9 @@ var r = new Recipe(
             'Add the chicken pieces and turn in the sauce mixture to coat. Cook gently for about 3-5 minutes or until almost tender.',
             [
                 new Ingredient(
-                    'chicken, skinned and cut into bite-sized pieces',
+                    'chicken breasts, skinned and cut into bite-sized pieces',
                     '6',
-                    'breasts'),
+                    ''),
 
             ],
             300),
@@ -124,13 +124,13 @@ var r = new Recipe(
             'Transfer to a warmed serving dish and garnish with lime leaves, sliced red chillies and chopped coriander. Serve with rice or noodles.',
             [
                 new Ingredient(
-                    'kaffir lime',
+                    'kaffir lime leaves',
                     '2',
-                    'leaves'),
+                    ''),
                 new Ingredient(
                     'red chillies, sliced',
                     '1',
-                    'piece'),
+                    ''),
                 new Ingredient(
                     'fresh coriander, chopped',
                     '10',
