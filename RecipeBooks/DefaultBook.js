@@ -3,4 +3,5 @@ RECIPELIST = [
     "Clementine Cake",
     "Red Chicken Curry",
     "SecretRecipe",
+    "I love Isaac",
 ];
