@@ -1,5 +1,6 @@
 RECIPELIST = [
-    "Sourdough",
-    "Clementine Cake",
-    "Red Chicken Curry",
+"Sourdough",
+"Clementine Cake",
+"Red Chicken Curry",
+"TestRecipe",
 ];
