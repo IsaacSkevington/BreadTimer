@@ -1,3 +1,5 @@
+
+
 class IngredientInput{
     constructor(stepID, id, position){
         this.id = id;
@@ -392,7 +394,8 @@ class RecipeWriter{
         });
         text += "    ],\n\n" + this.groupCreate(groupData) + ",//Groups\n\n" + this.repeatsCreate(repeatData) + "//Repeats\n";
         text += ");\nRECIPEBOOK.add(r);";
-        alert("Recipe created successfully, click OK to download")
+        this.uploadRecipe(name, text);
+        alert("Recipe created successfully, click OK to download");
         this.download(name + ".js", text);
     }
 
@@ -439,6 +442,59 @@ class RecipeWriter{
         }
         text += "}";
         return "    " + text;
+    }
+
+
+    uploadRecipe(name, text){
+        var filename = name + ".js";
+        var executeScript = document.createElement('script');
+        var base64Encoded = btoa(text);
+        executeScript.innerHTML = "import { Octokit } from 'https://cdn.skypack.dev/@octokit/rest';\n" +
+                                  "const octokit = new Octokit({ auth: `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` });\n" + 
+                                  "octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {\n" + 
+                                  "owner: 'IsaacSkevington',\n" + 
+                                  "repo: 'RecipeBook',\n" +
+                                  "path: 'recipes/' + '" + filename + "',\n" +
+                                  "message: 'Added ' + '" + filename + "',\n" +
+                                  "content: '"+ base64Encoded + "'\n" + 
+                                   "});\n";
+        executeScript.type = 'module';
+        document.head.appendChild(executeScript);
+
+        var bookText = "RECIPELIST = [\n";
+        for(var i = 0; i < RECIPELIST.length; i++){
+            bookText += "    \"" + RECIPELIST[i] + "\",\n";
+        }
+        bookText += "    \"" + name + "\",\n";
+        bookText += "];"
+
+        base64Encoded = btoa(bookText);
+
+        var executeScript2 = document.createElement('script');
+        var recipeBookName = USER.preferences["Default Recipe Book"];
+
+
+
+
+        executeScript2.innerHTML = "import { Octokit } from 'https://cdn.skypack.dev/@octokit/rest';\n" +
+                                  "const octokit = new Octokit({ auth: `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` });\n" + 
+                                  "const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {\n" + 
+                                  "owner: 'IsaacSkevington',\n" +
+                                  "repo : 'RecipeBook',\n" +
+                                  "path: 'RecipeBooks/' + '" + recipeBookName + ".js" + "',\n" +
+                                  "});\n" +
+                                  "octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {\n" + 
+                                  "owner: 'IsaacSkevington',\n" + 
+                                  "sha: response.data.sha,\n" +
+                                  "repo: 'RecipeBook',\n" +
+                                  "path: 'RecipeBooks/' + '" + recipeBookName + ".js" + "',\n" +
+                                  "message: 'Added ' + '" + name + " to " + recipeBookName + "',\n" +
+                                  "content: '"+ base64Encoded + "',\n" + 
+                                   "});\n";
+        executeScript2.type = 'module';
+        document.head.appendChild(executeScript2);
+        
+        
     }
 
     download(filename, text) {
