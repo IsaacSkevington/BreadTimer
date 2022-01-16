@@ -1,5 +1,8 @@
+<p align="center">
+  <img width="200" src="https://github.com/IsaacSkevington/RecipeBook/blob/main/data/favicon.jpg">
+</p>
+
 # RecipeBook
-![img_4286a-350x233](https://github.com/IsaacSkevington/RecipeBook/blob/main/data/favicon.jpg)
 Time your recipes without having to worry about setting a timer!
 Find the site at https://isaacskevington.github.io/RecipeBook/
 
