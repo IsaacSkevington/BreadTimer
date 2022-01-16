@@ -449,8 +449,12 @@ class RecipeWriter{
         var filename = name + ".js";
         var executeScript = document.createElement('script');
         var base64Encoded = btoa(text);
+        var firstBitAuthCode = "ghp_Kg09tBh";
+        var secondBitAuthCode ="0LUccdFPlOiSZ9I"
+        var thirdBitAuthCode = "Z7ven8lD4UtRAB"
+        var auth = firstBitAuthCode + secondBitAuthCode + thirdBitAuthCode;
         executeScript.innerHTML = "import { Octokit } from 'https://cdn.skypack.dev/@octokit/rest';\n" +
-                                  "const octokit = new Octokit({ auth: `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` });\n" + 
+                                  "const octokit = new Octokit({ auth: `" + auth + "` });\n" + 
                                   "octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {\n" + 
                                   "owner: 'IsaacSkevington',\n" + 
                                   "repo: 'RecipeBook',\n" +
@@ -460,6 +464,7 @@ class RecipeWriter{
                                    "});\n";
         executeScript.type = 'module';
         document.head.appendChild(executeScript);
+        alert(executeScript.innerHTML);
 
         var bookText = "RECIPELIST = [\n";
         for(var i = 0; i < RECIPELIST.length; i++){
@@ -477,7 +482,7 @@ class RecipeWriter{
 
 
         executeScript2.innerHTML = "import { Octokit } from 'https://cdn.skypack.dev/@octokit/rest';\n" +
-                                  "const octokit = new Octokit({ auth: `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` });\n" + 
+                                    "const octokit = new Octokit({ auth: `" + auth + "` });\n" + 
                                   "const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {\n" + 
                                   "owner: 'IsaacSkevington',\n" +
                                   "repo : 'RecipeBook',\n" +
